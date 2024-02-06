@@ -1,45 +1,66 @@
+import java.util.ArrayList;
+
 class Solution {
-    int res = 0;
     public int reversePairs(int[] nums) {
-        mergeSort(nums,0,nums.length-1);
-        return res;
+        int n = nums.length;
+        return mergeSort(nums, 0, n - 1);
     }
-    void mergeSort(int nums[], int l, int r){
-        if(l == r) return;
-        int mid = (l + r)/2;
-        mergeSort(nums,l,mid);
-        mergeSort(nums,mid+1,r);
-        merge(nums,l,mid,r);
-    }
-    void merge(int nums[], int l, int mid, int r){
-        int temp[] = new int[r - l + 1];
-        int i = l, j = mid + 1, k = 0;
-        while(i <= mid && j <= r){
-            while(i <= mid && (long)nums[i] <= 2*(long)nums[j]){
-                i++;
-            }
-            res += mid - i + 1;
-            j++;
-        }
-        i = l;
-        j = mid + 1;
-        while(i <= mid && j <= r){
-            if(nums[i] <= nums[j]){
-                temp[k++] = nums[i++];
-            }
-            else{
-                temp[k++] =  nums[j++];
+
+    private static void merge(int[] arr, int low, int mid, int high) {
+        ArrayList<Integer> temp = new ArrayList<>(); // temporary array
+        int left = low;      // starting index of left half of arr
+        int right = mid + 1;   // starting index of right half of arr
+
+        //storing elements in the temporary array in a sorted manner//
+
+        while (left <= mid && right <= high) {
+            if (arr[left] <= arr[right]) {
+                temp.add(arr[left]);
+                left++;
+            } else {
+                temp.add(arr[right]);
+                right++;
             }
         }
-        while(i <= mid){
-            temp[k++] = nums[i++];
+
+        // if elements on the left half are still left //
+
+        while (left <= mid) {
+            temp.add(arr[left]);
+            left++;
         }
-        while(j <= r){
-            temp[k++] = nums[j++];
+
+        //  if elements on the right half are still left //
+        while (right <= high) {
+            temp.add(arr[right]);
+            right++;
         }
-        k = 0;
-        for(k = 0; k < temp.length; k++){
-            nums[l + k] = temp[k];
+
+        // transfering all elements from temporary to arr //
+        for (int i = low; i <= high; i++) {
+            arr[i] = temp.get(i - low);
         }
     }
+
+    public static int countPairs(int[] arr, int low, int mid, int high) {
+        int right = mid + 1;
+        int cnt = 0;
+        for (int i = low; i <= mid; i++) {
+            while (right <= high && (long)arr[i] > (long)2 * arr[right]) right++;
+            cnt += (right - (mid + 1));
+        }
+        return cnt;
+    }
+
+    public static int mergeSort(int[] arr, int low, int high) {
+        int cnt = 0;
+        if (low >= high) return cnt;
+        int mid = (low + high) / 2 ;
+        cnt += mergeSort(arr, low, mid);  // left half
+        cnt += mergeSort(arr, mid + 1, high); // right half
+        cnt += countPairs(arr, low, mid, high); //Modification
+        merge(arr, low, mid, high);  // merging sorted halves
+        return cnt;
+    }
+
 }
