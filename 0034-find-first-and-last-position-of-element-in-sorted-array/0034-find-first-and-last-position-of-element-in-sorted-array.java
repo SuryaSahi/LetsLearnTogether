@@ -1,8 +1,7 @@
 class Solution {
     public int[] searchRange(int[] nums, int target) {
         //finding first occurance
-        int n = nums.length, k = -1;
-        int[] ans = new int[2];
+        int n = nums.length;
         int first = firstoccurance(nums , n , target );
         if(first == n || nums[first] != target)return new int[]{-1 , -1};
         int last = lastoccurance(nums , n , target);
