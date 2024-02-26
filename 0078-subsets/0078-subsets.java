@@ -7,11 +7,16 @@ class Solution {
     }
     
     public void helper(int index , int[] nums ,List<List<Integer>> ans , List<Integer> res){
-        ans.add(new ArrayList<>(res));
-        for(int i = index; i<nums.length; i++){
-        res.add(nums[i]);
-        helper(i + 1 , nums,ans , res);
+        if(index == nums.length){
+            ans.add(new ArrayList<>(res));
+                return;
+        }
+        //ans.add(new ArrayList<>(res));
+        //for(int i = index; i<nums.length; i++){
+        res.add(nums[index]);
+        helper(index + 1 , nums,ans , res);
         res.remove(res.size() - 1);
-        }   
+        helper(index + 1 , nums , ans , res);
+        //}   
     }
 }
