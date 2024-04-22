@@ -1,9 +1,11 @@
 class Solution2 {
     public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        //Getting TLE if not checking visited or not;
         Queue<int[]> que = new LinkedList<>();
         int row = image.length;
         int col = image[0].length;
         
+        int ogcolor = image[sr][sc];
         image[sr][sc] = color;
         que.add(new int[]{sr , sc});
         int[] dx = {0,0,1,-1};
@@ -17,7 +19,7 @@ class Solution2 {
                     int x = point[0] + dx[j];
                     int y = point[1] + dy[j];
                     
-                    if(x < 0 || y < 0 || x >= row || y >= col || image[x][y] == 0)continue;
+                    if(x < 0 || y < 0 || x >= row || y >= col || image[x][y] != ogcolor)continue;
                     
                     image[x][y] = color;
                     que.offer(new int[]{x,y});
@@ -37,7 +39,7 @@ class Solution {
     }
 
     int originalColor = image[sr][sc];
-     image[sr][sc] = color;
+    image[sr][sc] = color;
     Queue<int[]> queue = new LinkedList<>();
     boolean[][] visited = new boolean[rows][cols]; // Keep track of visited pixels
 
