@@ -1,4 +1,4 @@
-class Solution1 {
+class Solution {
     public int findMaxK(int[] nums) {
         int no =  -1;
         for(int i = 0; i<nums.length; i++){
@@ -13,7 +13,7 @@ class Solution1 {
     }
 }
 
-class Solution {
+class Solution1 {
     public int findMaxK(int[] nums){
         Arrays.sort(nums);
         int k = 0;
