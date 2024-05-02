@@ -40,6 +40,8 @@ class Solution1 {
 }
 
 class Solution {
+    //O(n) time & space complextiy 
+    // Optimized Code
     public int findMaxK(int[] nums){
         HashSet<Integer> set = new HashSet<>();
         int ans = -1;
