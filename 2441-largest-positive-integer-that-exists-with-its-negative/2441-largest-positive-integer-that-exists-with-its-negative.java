@@ -1,4 +1,5 @@
-class Solution {
+class Solution2 {
+    //O(n^2)time complexity
     public int findMaxK(int[] nums) {
         int no =  -1;
         for(int i = 0; i<nums.length; i++){
@@ -14,6 +15,7 @@ class Solution {
 }
 
 class Solution1 {
+    //O(nlogn + n)time complexity
     public int findMaxK(int[] nums){
         Arrays.sort(nums);
         int k = 0;
@@ -32,6 +34,19 @@ class Solution1 {
                     ans = Math.max(no , ans);
                 }
             }
+        }
+        return ans;
+    }
+}
+
+class Solution {
+    public int findMaxK(int[] nums){
+        HashSet<Integer> set = new HashSet<>();
+        int ans = -1;
+        for(int i = 0; i<nums.length; i++){
+            set.add(nums[i]);
+            int k = nums[i] * -1;
+            if(set.contains(k))ans = Math.max(ans , Math.abs(k)); 
         }
         return ans;
     }
