@@ -1,18 +1,19 @@
 class Solution {
     public boolean isBipartite(int[][] graph) {
-        int colors[] = new int[graph.length];
-        for(int i = 0; i<graph.length; i++){
-            if(colors[i] == 0 && !dfs(i, graph, colors, true)){
-                return false;
-            }
+        int n = graph.length;
+        int[] color = new int[n];
+        for(int i = 0; i<n; i++){
+            if(color[i] == 0 && !bfs(color , graph , i , true))return false;
         }
         return true;
     }
-    private boolean dfs(int s, int[][] graph, int colors[], boolean col){
-        if(col) colors[s] = 1;
-        else colors[s] = 2;
-        for(int v : graph[s])
-            if(colors[v] == (col ? 1 : 2) || colors[v] == 0 && !dfs(v, graph, colors, !col)) return false;
+    
+    public boolean bfs(int[] color , int[][] graph , int node , boolean red){
+        if(red) color[node] = 1;
+        else color[node] = 2;
+        for(int num : graph[node]){
+            if(color[num] == (red ? 1 : 2) || color[num] == 0 && !bfs(color , graph , num , !red))return false;
+        }
         return true;
     }
 }
