@@ -13,7 +13,7 @@
  *     }
  * }
  */
-class Solution {
+class Solution1 {
     public int sumNumbers(TreeNode root) {
         //stack to traverse + store the value of sum of previous nodes 
        if(root == null)return 0;
@@ -33,5 +33,26 @@ class Solution {
             if(temp.left == null && temp.right == null)result_sum += sum * 10 +  temp.val;
         }
         return result_sum;
+    }
+}
+
+class Solution {
+    int sum = 0;
+    public int sumNumbers(TreeNode root){
+        //using pre-order traversal
+        helper(root , "");
+        return sum;
+    }
+    
+    public void helper(TreeNode root , String str){
+        if(root == null)return;
+        
+        str += root.val;
+        if(root.left == null && root.right == null){
+            sum += Integer.parseInt(str);
+        }
+        helper(root.left , str);
+        helper(root.right , str);
+        
     }
 }
