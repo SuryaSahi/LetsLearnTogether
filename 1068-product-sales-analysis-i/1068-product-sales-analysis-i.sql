@@ -1,0 +1,1 @@
+SELECT Product.product_name , Sales.year , Sales.price from Sales NATURAL JOIN Product;
