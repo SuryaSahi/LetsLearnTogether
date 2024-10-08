@@ -1,11 +1,11 @@
 class Solution {
     static final int mod = 1000000007; // modulo 
     public int numRollsToTarget(int n, int k, int target) {
-        int[][] dp = new int[n + 1][target + 1];
-        for (int[] row : dp) {
-            Arrays.fill(row, -1);
-        }
-        int ans = solve(n,k,target , dp);
+        // int[][] dp = new int[n + 1][target + 1];
+        // for (int[] row : dp) {
+        //     Arrays.fill(row, -1);
+        // }
+        int ans = solveTab(n,k,target);
             return ans;
     }
     
@@ -21,5 +21,21 @@ class Solution {
         }
         //memoize the value
         return dp[n][target] = ans;
+    }
+    public int solveTab(int n, int k, int target){
+        int[][] dp = new int[n+1][target + 1];
+        
+        dp[0][0] = 1;
+        for(int i = 1; i<=n; i++){
+            for(int tar = 1; tar<=target; tar++){
+                dp[i][tar] = 0;
+                for(int key = 1; key<=k; key++){
+                    if(tar - key >= 0){
+                        dp[i][tar] = (dp[i][tar] + dp[i - 1][tar - key]) % mod;
+                    }
+                }
+            }
+        }
+        return dp[n][target];
     }
 }
