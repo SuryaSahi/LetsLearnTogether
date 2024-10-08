@@ -9,7 +9,7 @@ class Solution {
             return ans;
     }
     
-    public int solve(int n , int k , int target , int[][] dp){
+    public int solveMemo(int n , int k , int target , int[][] dp){
         // BASE CASE
         if((n == 0 && target > 0) || (n != 0 && target <= 0) || target < 0) return 0;
         
@@ -17,7 +17,7 @@ class Solution {
         if(dp[n][target] != -1)return dp[n][target]; //overlapping sub problem saved values
         int ans = 0;
         for(int i = 1; i<=k; i++){
-            ans = (ans + solve(n - 1, k, target - i , dp)) % mod;
+            ans = (ans + solveMemo(n - 1, k, target - i , dp)) % mod;
         }
         //memoize the value
         return dp[n][target] = ans;
@@ -28,7 +28,7 @@ class Solution {
         dp[0][0] = 1;
         for(int i = 1; i<=n; i++){
             for(int tar = 1; tar<=target; tar++){
-                dp[i][tar] = 0;
+                // dp[i][tar] = 0;
                 for(int key = 1; key<=k; key++){
                     if(tar - key >= 0){
                         dp[i][tar] = (dp[i][tar] + dp[i - 1][tar - key]) % mod;
