@@ -8,7 +8,7 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-class Solution {
+class Solution1 {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         ArrayList<Integer> arr = new ArrayList<>();
         ListNode curr = list1;
@@ -36,5 +36,36 @@ class Solution {
         }
         
         return dummy.next;
+    }
+}
+
+
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2){
+        if(list1 == null || list2 == null){
+            if(list1 == null)return list2;
+            else if(list2 == null)return list1;
+            else return null;
+        }
+        //without using extra space
+        ListNode newhead = new ListNode(0);
+        ListNode dummy = newhead;
+        
+        while(list1 != null && list2 != null){
+            if(list1.val < list2.val){
+                dummy.next = list1;
+                //dummy = list1;
+                list1 = list1.next;
+            }
+            else{
+                dummy.next = list2;
+                //dummy = list2;
+                list2 = list2.next;
+            }
+            dummy = dummy.next;
+        }
+        if(list1 != null)dummy.next = list1;
+        if(list2 != null)dummy.next = list2;
+        return newhead.next;
     }
 }
