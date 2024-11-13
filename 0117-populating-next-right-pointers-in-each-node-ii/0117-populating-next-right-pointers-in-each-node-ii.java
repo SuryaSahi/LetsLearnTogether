@@ -37,8 +37,7 @@ class Solution {
                     prev.next = curr;
                 }
                 prev = curr;
-            
-            // prev.next = null;
+                prev.next = null;
             if(curr.left != null)que.add(curr.left);
             if(curr.right != null)que.add(curr.right);
             }
