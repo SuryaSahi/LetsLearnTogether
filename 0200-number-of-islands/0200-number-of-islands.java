@@ -5,7 +5,8 @@ class Solution {
             for (int j = 0; j < grid[0].length; j++) {
                 if (grid[i][j] == '1') {
                     ans++;
-                    bfs(grid, i, j);
+                    // bfs(grid, i, j);
+                    dfs(grid , i , j);
                 }
             }
         }
@@ -36,5 +37,15 @@ class Solution {
                 }
             }
         }
+    }
+    public void dfs(char[][] grid, int row, int col) {
+        if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length || grid[row][col] != '1') {
+            return;
+        }
+        grid[row][col] = '2';
+        dfs(grid, row - 1, col);
+        dfs(grid, row + 1, col);
+        dfs(grid, row, col - 1);
+        dfs(grid, row, col + 1);
     }
 }
