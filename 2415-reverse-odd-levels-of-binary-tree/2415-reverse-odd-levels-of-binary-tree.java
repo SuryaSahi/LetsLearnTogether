@@ -1,4 +1,4 @@
-class Solution {
+class Solution1 {
     public TreeNode reverseOddLevels(TreeNode root) {
         if (root == null) return null;
 
@@ -39,3 +39,26 @@ class Solution {
         return root;
     }
 }
+
+class Solution {
+    public TreeNode reverseOddLevels(TreeNode root) {
+        if (root == null) return null;
+
+        // Create a new tree with reversed odd levels
+        return buildNewTree(root, root, 0);
+    }
+
+    private TreeNode buildNewTree(TreeNode original, TreeNode mirror, int level) {
+        if (original == null || mirror == null) return null;
+
+        // Create a new node for the new tree
+        TreeNode newNode = new TreeNode(level % 2 == 0 ? original.val : mirror.val);
+
+        // Recursively build left and right subtrees
+        newNode.left = buildNewTree(original.left, mirror.right, level + 1);
+        newNode.right = buildNewTree(original.right, mirror.left, level + 1);
+
+        return newNode;
+    }
+}
+
